@@ -1,12 +1,12 @@
-//!Crear array de ingresos
+// Crear array de ingresos
 let ingresos = [];
 let totalIngreso = 0;
 
-//!Crear array de gastos
+// Crear array de gastos
 let gastos = [];
 let totalGasto = 0;
 
-//! Agregar ingresos
+// Agregar ingresos
 function agregarIngreso() {
     let descripcion = document.getElementById('detalleIngreso').value;
     let monto = parseFloat(document.getElementById('montoIngreso').value);
@@ -23,18 +23,18 @@ function agregarIngreso() {
     }
     
 }
-//! Actualizar el total de ingresos
+// Actualizar el total de ingresos
 function actualizarTotalIngresos() {
     document.getElementById('totalIngresos').textContent = `$${totalIngreso.toFixed(2)}`;
 }
-//! Mostrar ingresos.
+// Mostrar ingresos.
 function mostrarIngresos(){
     const ul = document.getElementById('listaIngresos');
     const ingresosHtml = ingresos.map(item => `<li class="lista">${item.descripcion}: $${item.monto.toFixed(2)}</li>`).join('');
     ul.innerHTML = ingresosHtml;
 }
 
-//! Evento de boton para agregar ingreso
+// Evento de boton para agregar ingreso
 let botonIngreso = document.getElementById('btnIngreso');
 botonIngreso.addEventListener('click',function(event){
     event.preventDefault();
@@ -61,7 +61,7 @@ function agregarGasto() {
         actualizarTotalGastos(); 
     }
 }
-//! Actualizar gasto en el dom
+// Actualizar gasto en el dom
 function actualizarTotalGastos() {
     document.getElementById('totalGastos').textContent = `$${totalGasto.toFixed(2)}`;
 }
@@ -82,25 +82,25 @@ let botonGastos = document.getElementById('botonGastos');
 mostrarGastos();
 actualizarTotalGastos();
 
-//! Funcion para mostrar el saldo en el dom
+// Funcion para mostrar el saldo en el dom
 function mostrarSaldo() {
     let saldo = totalIngreso - totalGasto;
     document.getElementById('saldoTotal').textContent = `$${saldo.toFixed(2)}`;
 }
 mostrarSaldo();
 
-//! Boton para guardar datos en el Local Storage
+// Boton para guardar datos en el Local Storage
 let botonGuardar = document.getElementById('guardarDatos');
 botonGuardar.addEventListener("click", function () {
     localStorage.setItem('ingresos', JSON.stringify(ingresos));
     localStorage.setItem('gastos',JSON.stringify(gastos));
 })
-//! Tomar el evento del boton para Cargar datos
+// Tomar el evento del boton para Cargar datos
 let botonCargar = document.getElementById('cargarDatos');
 botonCargar.addEventListener('click', function () {
     cargarDatosDesdeLocalStorage();
 });
-//! Esta funcion trae los datos guardados al Dom
+// Esta funcion trae los datos guardados al Dom
 function cargarDatosDesdeLocalStorage() {
     const ingresosGuardados = JSON.parse(localStorage.getItem('ingresos'));
     const gastosGuardados = JSON.parse(localStorage.getItem('gastos'));
@@ -120,7 +120,7 @@ function cargarDatosDesdeLocalStorage() {
         actualizarTotalGastos();
     }
 }
-//! Boton para borrar los datos tanto del local Storage como del DOM
+// Boton para borrar los datos tanto del local Storage como del DOM
 let botonBorrarDatos = document.getElementById('borrarDatos');
 botonBorrarDatos.addEventListener('click', function(){
     localStorage.clear(); 
