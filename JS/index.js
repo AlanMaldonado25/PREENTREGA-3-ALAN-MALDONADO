@@ -91,16 +91,47 @@ botonGuardar.addEventListener("click", function () {
     localStorage.setItem('ingresos', JSON.stringify(ingresos));
     localStorage.setItem('gastos',JSON.stringify(gastos));
 })
-let botonCargar = document.getElementById('cargarDatos');
-botonCargar.addEventListener("click", function (){
-    if (!localStorage.getItem('ingresos') || !localStorage.getItem('gastos')){
-        localStorage.parse(ingresos,gastos);
-        mostrarGastos();
+function cargarDatosDesdeLocalStorage() {
+    const ingresosGuardados = JSON.parse(localStorage.getItem('ingresos'));
+    const gastosGuardados = JSON.parse(localStorage.getItem('gastos'));
+
+    // Verificar si hay datos guardados
+    if (ingresosGuardados && gastosGuardados) {
+        // Asignar los datos guardados a tus arrays de ingresos y gastos
+        ingresos = ingresosGuardados;
+        gastos = gastosGuardados;
+
+        // Llamar a las funciones para mostrar los datos en el DOM
         mostrarIngresos();
+        mostrarGastos();
         mostrarSaldo();
     }
-})
+}
+let botonCargar = document.getElementById('cargarDatos');
+botonCargar.addEventListener('click', function () {
+    cargarDatosDesdeLocalStorage();
+});
 let botonBorrarDatos = document.getElementById('borrarDatos');
 botonBorrarDatos.addEventListener('click', function(){
     localStorage.clear();
 })
+function cargarDatosDesdeLocalStorage() {
+    const ingresosGuardados = JSON.parse(localStorage.getItem('ingresos'));
+    const gastosGuardados = JSON.parse(localStorage.getItem('gastos'));
+
+    // Verificar si hay datos guardados
+    if (ingresosGuardados && gastosGuardados) {
+        // Asignar los datos guardados a tus arrays de ingresos y gastos
+        ingresos = ingresosGuardados;
+        gastos = gastosGuardados;   
+        totalIngreso = calcularTotal(ingresos);
+        totalGasto = calcularTotal(gastos);
+        // Llamar a las funciones para mostrar los datos en el DOM
+        mostrarIngresos();
+        mostrarGastos();
+        mostrarSaldo();
+    }
+}
+function calcularTotal(items){
+    return items.reduce((total,item) => total + item.monto,0);
+}
