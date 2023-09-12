@@ -40,8 +40,9 @@ html{
     display: grid;
 } */
 .inputs{
+    width: 100%;
     display: grid;
-    grid-template-columns:repeat(auto-fit,minmax(50rem,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(80rem,1fr));
     gap: 5rem;
     background-color: var(--secundario);
 }
@@ -53,7 +54,10 @@ html{
     margin: 5rem;
     border-radius: .5rem;
     padding: 2rem;
-
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
 }
 .gastos{
     display: flex;
@@ -148,4 +152,11 @@ html{
 }
 #mensaje{
     display: none;
+}
+@media(max-width:800)  {
+     .inputs{
+        display: grid;
+        grid-template-columns:repeat(auto-fit,minmax(30rem,1fr));            gap: 2rem;
+        background-color: var(--secundario);
+    }
 }
