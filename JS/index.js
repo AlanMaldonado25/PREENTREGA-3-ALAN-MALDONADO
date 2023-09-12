@@ -12,7 +12,12 @@ function agregarIngreso() {
     let monto = parseFloat(document.getElementById('montoIngreso').value);
     
     if (descripcion == '' || monto == '') {
-        alert('Por favor, ingresa un detalle valido.');
+        Swal.fire({
+            title: "Oopps",
+            text: "Ingresa un dato valido",
+            icon: "warning",
+            confirmButtonText: "ok"
+        });
         return;
     }else{
         ingresos.push({descripcion,monto});
@@ -51,7 +56,12 @@ function agregarGasto() {
     let monto = parseFloat(document.getElementById('montoGasto').value);
     
     if (descripcion == ''|| monto =='') {
-        alert('Por favor, ingresa un detalle valido.');
+        Swal.fire({
+            title: "Oopps",
+            text: "Ingresa un dato valido",
+            icon: "warning",
+            confirmButtonText: "ok"
+        });
         return;
     }else{
         gastos.push({descripcion,monto});
