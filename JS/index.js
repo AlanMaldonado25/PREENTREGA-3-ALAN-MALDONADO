@@ -91,22 +91,7 @@ botonGuardar.addEventListener("click", function () {
     localStorage.setItem('ingresos', JSON.stringify(ingresos));
     localStorage.setItem('gastos',JSON.stringify(gastos));
 })
-function cargarDatosDesdeLocalStorage() {
-    const ingresosGuardados = JSON.parse(localStorage.getItem('ingresos'));
-    const gastosGuardados = JSON.parse(localStorage.getItem('gastos'));
 
-    // Verificar si hay datos guardados
-    if (ingresosGuardados && gastosGuardados) {
-        // Asignar los datos guardados a tus arrays de ingresos y gastos
-        ingresos = ingresosGuardados;
-        gastos = gastosGuardados;
-
-        // Llamar a las funciones para mostrar los datos en el DOM
-        mostrarIngresos();
-        mostrarGastos();
-        mostrarSaldo();
-    }
-}
 let botonCargar = document.getElementById('cargarDatos');
 botonCargar.addEventListener('click', function () {
     cargarDatosDesdeLocalStorage();
@@ -130,6 +115,8 @@ function cargarDatosDesdeLocalStorage() {
         mostrarIngresos();
         mostrarGastos();
         mostrarSaldo();
+        actualizarTotalIngresos();
+        actualizarTotalGastos();
     }
 }
 function calcularTotal(items){
