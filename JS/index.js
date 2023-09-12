@@ -58,19 +58,20 @@ function agregarGasto() {
         totalGasto += monto;
         document.getElementById('detalleGasto').value = '';
         document.getElementById('montoGasto').value = '';
-        actualizarTotalGastos();
-        
+        actualizarTotalGastos(); 
     }
-    
 }
+//! Actualizar gasto en el dom
 function actualizarTotalGastos() {
     document.getElementById('totalGastos').textContent = `$${totalGasto.toFixed(2)}`;
 }
+
 function mostrarGastos(){
     const ul = document.getElementById('listaGastos');
     const gastosHtml = gastos.map(item => `<li class="lista">${item.descripcion}: $${item.monto.toFixed(2)}</li>`).join('');
     ul.innerHTML = gastosHtml;
 }
+
 let botonGastos = document.getElementById('botonGastos');
     botonGastos.addEventListener('click',function(event){
     event.preventDefault();
@@ -80,26 +81,26 @@ let botonGastos = document.getElementById('botonGastos');
 })
 mostrarGastos();
 actualizarTotalGastos();
+
+//! Funcion para mostrar el saldo en el dom
 function mostrarSaldo() {
     let saldo = totalIngreso - totalGasto;
     document.getElementById('saldoTotal').textContent = `$${saldo.toFixed(2)}`;
 }
 mostrarSaldo();
 
+//! Boton para guardar datos en el Local Storage
 let botonGuardar = document.getElementById('guardarDatos');
 botonGuardar.addEventListener("click", function () {
     localStorage.setItem('ingresos', JSON.stringify(ingresos));
     localStorage.setItem('gastos',JSON.stringify(gastos));
 })
-
+//! Tomar el evento del boton para Cargar datos
 let botonCargar = document.getElementById('cargarDatos');
 botonCargar.addEventListener('click', function () {
     cargarDatosDesdeLocalStorage();
 });
-let botonBorrarDatos = document.getElementById('borrarDatos');
-botonBorrarDatos.addEventListener('click', function(){
-    localStorage.clear();
-})
+//! Esta funcion trae los datos guardados al Dom
 function cargarDatosDesdeLocalStorage() {
     const ingresosGuardados = JSON.parse(localStorage.getItem('ingresos'));
     const gastosGuardados = JSON.parse(localStorage.getItem('gastos'));
@@ -119,6 +120,20 @@ function cargarDatosDesdeLocalStorage() {
         actualizarTotalGastos();
     }
 }
+//! Boton para borrar los datos tanto del local Storage como del DOM
+let botonBorrarDatos = document.getElementById('borrarDatos');
+botonBorrarDatos.addEventListener('click', function(){
+    localStorage.clear(); 
+    ingresos = [];
+    gastos = []; 
+    totalIngreso = 0;
+    totalGasto = 0;
+    mostrarIngresos();
+    mostrarGastos();
+    actualizarTotalIngresos();
+    actualizarTotalGastos();
+    mostrarSaldo();
+});
 function calcularTotal(items){
     return items.reduce((total,item) => total + item.monto,0);
 }
