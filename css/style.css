@@ -3,6 +3,7 @@
     --secundario:#80ced6;
     --claro:#fefbd8;
     --oscuro:#618685;
+    --rojo:#00ff0d;
 }
 
 html{
@@ -125,6 +126,7 @@ html{
 .lista{
     font-size: 1.8rem;
     text-transform: uppercase;
+    list-style: none;
 }
 .totalIngresos{
     display: flex;

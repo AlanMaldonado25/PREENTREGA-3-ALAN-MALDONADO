@@ -25,6 +25,20 @@ function agregarIngreso() {
         document.getElementById('detalleIngreso').value = '';
         document.getElementById('montoIngreso').value = '';
         actualizarTotalIngresos();
+        Toastify({
+            text: "Agregaste el gasto Correctamente",
+            duration: 3000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, #40ff69, #00ff0d)",
+            },
+            onClick: function(){} // Callback after click
+          }).showToast();
     }
     
 }
@@ -69,6 +83,20 @@ function agregarGasto() {
         document.getElementById('detalleGasto').value = '';
         document.getElementById('montoGasto').value = '';
         actualizarTotalGastos(); 
+        Toastify({
+            text: "Agregaste el gasto Correctamente",
+            duration: 3000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, rgb(251, 65, 65), rgb(248, 0, 0))",
+            },
+            onClick: function(){} // Callback after click
+          }).showToast();
     }
 }
 // Actualizar gasto en el dom
@@ -104,11 +132,23 @@ let botonGuardar = document.getElementById('guardarDatos');
 botonGuardar.addEventListener("click", function () {
     localStorage.setItem('ingresos', JSON.stringify(ingresos));
     localStorage.setItem('gastos',JSON.stringify(gastos));
+    Swal.fire({
+        title: "Guardado",
+        text: "Acabas de guardar los datos",
+        icon: "success",
+        confirmButtonText: "ok"
+    });
 })
 // Tomar el evento del boton para Cargar datos
 let botonCargar = document.getElementById('cargarDatos');
 botonCargar.addEventListener('click', function () {
     cargarDatosDesdeLocalStorage();
+    Swal.fire({
+        title: "Cargado",
+        text: "Acabas de cargar los datos anteriormente guardados",
+        icon: "success",
+        confirmButtonText: "ok"
+    });
 });
 // Esta funcion trae los datos guardados al Dom
 function cargarDatosDesdeLocalStorage() {
@@ -133,16 +173,34 @@ function cargarDatosDesdeLocalStorage() {
 // Boton para borrar los datos tanto del local Storage como del DOM
 let botonBorrarDatos = document.getElementById('borrarDatos');
 botonBorrarDatos.addEventListener('click', function(){
-    localStorage.clear(); 
-    ingresos = [];
-    gastos = []; 
-    totalIngreso = 0;
-    totalGasto = 0;
-    mostrarIngresos();
-    mostrarGastos();
-    actualizarTotalIngresos();
-    actualizarTotalGastos();
-    mostrarSaldo();
+    Swal.fire({
+        title: 'Seguro que quieres reiniciar?',
+        text: "No puedes revertir este paso",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, quiero'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Borrado!',
+            'Acabas de reiniciar todos los datos',
+            'success'
+          )
+          localStorage.clear(); 
+            ingresos = [];
+            gastos = []; 
+            totalIngreso = 0;
+            totalGasto = 0;
+            mostrarIngresos();
+            mostrarGastos();
+            actualizarTotalIngresos();
+            actualizarTotalGastos();
+            mostrarSaldo();
+        }
+      })
+    
 });
 function calcularTotal(items){
     return items.reduce((total,item) => total + item.monto,0);
