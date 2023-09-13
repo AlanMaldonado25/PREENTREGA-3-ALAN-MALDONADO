@@ -93,7 +93,7 @@ function agregarGasto() {
             position: "right", // `left`, `center` or `right`
             stopOnFocus: true, // Prevents dismissing of toast on hover
             style: {
-              background: "linear-gradient(to right, rgb(251, 65, 65), rgb(248, 0, 0))",
+                background: "linear-gradient(to right, #40ff69, #00ff0d)",
             },
             onClick: function(){} // Callback after click
           }).showToast();
